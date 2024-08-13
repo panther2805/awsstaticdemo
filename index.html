@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guess the Number Game</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 20px;
+        }
+        #game {
+            margin: auto;
+            max-width: 400px;
+        }
+        input {
+            padding: 10px;
+            margin: 10px;
+            width: 80%;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <div id="game">
+        <h1>Guess the Number Game</h1>
+        <p>I'm thinking of a number between 1 and 100. Can you guess it?</p>
+        <input type="number" id="guessInput" placeholder="Enter your guess" min="1" max="100">
+        <button onclick="makeGuess()">Guess</button>
+        <p id="feedback"></p>
+        <p id="attempts"></p>
+    </div>
+
+    <script>
+        let numberToGuess = Math.floor(Math.random() * 100) + 1;
+        let attempts = 0;
+
+        function makeGuess() {
+            const guessInput = document.getElementById('guessInput');
+            const feedback = document.getElementById('feedback');
+            const attemptsDisplay = document.getElementById('attempts');
+
+            let guess = parseInt(guessInput.value);
+
+            if (isNaN(guess) || guess < 1 || guess > 100) {
+                feedback.textContent = 'Please enter a number between 1 and 100.';
+                return;
+            }
+
+            attempts++;
+            
+            if (guess < numberToGuess) {
+                feedback.textContent = 'Too low! Try again.';
+            } else if (guess > numberToGuess) {
+                feedback.textContent = 'Too high! Try again.';
+            } else {
+                feedback.textContent = `Congratulations! You guessed the number in ${attempts} attempts.`;
+            }
+
+            attemptsDisplay.textContent = `Attempts: ${attempts}`;
+        }
+    </script>
+</body>
+</html>
+
